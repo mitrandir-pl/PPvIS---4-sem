@@ -1,0 +1,2 @@
+class Hunger:
+    pass
