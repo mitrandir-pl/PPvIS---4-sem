@@ -1,8 +1,8 @@
-from Field import Field
-from Bear import Bear
-from Dragon import Dragon
-from Cycle import Cycle
-from Rabbit import Rabbit
+from field import Field
+from bear import Bear
+from dragon import Dragon
+from cycle import Cycle
+from rabbit import Rabbit
 
 
 class LoadFromFile:
@@ -12,15 +12,15 @@ class LoadFromFile:
         forest = Field()
         try:
             with open(file_name, "r") as file:
-                for key, line in zip(forest.area, file):
+                for region, line in zip(forest.area, file):
                     for creature in line.strip().split():
                         match creature:
                             case 'B':
-                                Bear(forest)
+                                Bear(forest, region)
                             case 'D':
-                                Dragon(forest)
+                                Dragon(forest, region)
                             case 'R':
-                                Rabbit(forest)
+                                Rabbit(forest, region)
                 forest.show_field()
                 Cycle.life(forest)
         except FileNotFoundError:

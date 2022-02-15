@@ -4,11 +4,11 @@ import random
 
 class Animal(ABC):
 
-    def __init__(self, field):
+    def __init__(self, field, region):
         self._health = 100
         self._life_cycle = False
         self._sex = random.choice(['male', 'female'])
-        field.add_to_field(self)
+        field.add_to_current_region(region, self)
 
     def move(self):
         pass
