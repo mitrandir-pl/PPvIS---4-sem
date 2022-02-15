@@ -1,10 +1,10 @@
 from Animal import Animal
 
 
-class Bear(Animal):
+class Dragon(Animal):
 
     def show(self):
-        print('Bear', self.sex[0], end=' ')
+        print('Dragon', self.sex[0],  end=' ')
 
     def eat(self):
         pass

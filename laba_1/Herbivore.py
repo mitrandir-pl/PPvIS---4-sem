@@ -1,2 +1,0 @@
-class Herbivore:
-    pass
