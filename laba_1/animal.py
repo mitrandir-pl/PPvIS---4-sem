@@ -4,14 +4,20 @@ import random
 
 class Animal(ABC):
 
-    def __init__(self, field, region):
+    def __init__(self):
         self._health = 100
+        self._hunger = 0
         self._life_cycle = False
+        self._type = 'animal'
         self._sex = random.choice(['male', 'female'])
-        field.add_to_current_region(region, self)
 
-    def move(self):
-        pass
+    def move(self, field):
+        field.add_to_field(self)
+        self.life_cycle = True
+
+    @property
+    def type(self):
+        return self._type
 
     @property
     def sex(self):
@@ -33,6 +39,8 @@ class Animal(ABC):
     def eat(self):
         pass
 
-    @abstractmethod
-    def reproduction(self):
-        pass
+    def check_reproduce(self, field, region, cell_num):
+        cell = field.area[region][cell_num]
+        if cell.has_empty_place():
+            partner = cell.get_partner(self)
+            return partner if partner else False

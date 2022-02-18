@@ -1,5 +1,5 @@
-from load_from_file import LoadFromFile
+from file_manager import FileManager
 
 
 if __name__ == "__main__":
-    LoadFromFile.begin('field.txt')
+    FileManager.load('field.txt')

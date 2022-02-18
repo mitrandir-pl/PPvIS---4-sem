@@ -3,28 +3,28 @@ import os
 
 from nutrition import Nutrition
 from movement import Movement
+from reproduction import Reproduction
 
 
 class Cycle:
     processes = (
+        # 'moving',
         # 'eating',
-        'moving',
-        # 'reproduction',
+        'reproduction',
     )
 
     @staticmethod
     def life(field):
-        # clear = lambda: os.system('cls')
         while True:
             for process in Cycle.processes:
                 match process:
-                    case 'moving':
-                        Movement.moving(field)
-                    case 'eating':
-                        Nutrition.eating(field)
-                    # case 'reproduction':
-                    #     pass
+                    # case 'moving':
+                    #     Movement.moving(field)
+                    # case 'eating':
+                    #     Nutrition.eating(field)
+                    case 'reproduction':
+                        Reproduction.reproduction(field)
                 field.show_field()
-                field.set_life_cycles_true()
-                time.sleep(3)
+                field.set_life_cycles_false()
+                input()
                 os.system('cls')

@@ -1,14 +1,14 @@
 from animal import Animal
 
 
-class Bear(Animal):
+class Boar(Animal):
 
     def __init__(self):
         super().__init__()
-        self._type = 'bear'
+        self._type = 'boar'
 
     def show(self):
-        print('Bear', self.sex[0], end=' ')
+        print('Boar', self.sex[0], end=' ')
 
     def eat(self):
         pass
@@ -18,5 +18,5 @@ class Bear(Animal):
         if partner.life_cycle is False:
             cell = field.area[region][cell_num]
             index = cell.get_index_of_empty_place()
-            cell.add_by_index(index, Bear())
+            cell.add_by_index(index, Boar())
             self.life_cycle = partner.life_cycle = True
