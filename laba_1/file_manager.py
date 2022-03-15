@@ -1,17 +1,17 @@
-from field import Field
-from bear import Bear
-from dragon import Dragon
+from Field.field import Field
+from Animals.bear import Bear
+from Animals.dragon import Dragon
 from cycle import Cycle
 from empty_place import EmptyPlace
-from rabbit import Rabbit
-from boar import Boar
-from bash import Bash
+from Animals.rabbit import Rabbit
+from Animals.boar import Boar
+from Plants.bash import Bash
 
 
 class FileManager:
 
     @staticmethod
-    def load(file_name):
+    def load(file_name: str) -> None:
         forest = Field()
         try:
             with open(file_name, "r") as file:
@@ -36,5 +36,5 @@ class FileManager:
             print('ERROR. No such file or directory:', file_name)
 
     @staticmethod
-    def upload(file_name):
+    def upload(file_name: str) -> None:
         pass

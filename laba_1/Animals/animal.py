@@ -1,19 +1,21 @@
-from abc import ABC, abstractmethod
 import random
+from abc import ABC, abstractmethod
 
 
 class Animal(ABC):
 
     def __init__(self):
         self._health = 100
+        self._age = 0
         self._hunger = 0
         self._life_cycle = False
         self._type = 'animal'
         self._sex = random.choice(['male', 'female'])
 
     def move(self, field):
-        field.add_to_field(self)
         self.life_cycle = True
+        if field.add_to_field(self):
+            return True
 
     @property
     def type(self):
@@ -43,4 +45,4 @@ class Animal(ABC):
         cell = field.area[region][cell_num]
         if cell.has_empty_place():
             partner = cell.get_partner(self)
-            return partner if partner else False
+            return partner

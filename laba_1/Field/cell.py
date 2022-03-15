@@ -21,6 +21,7 @@ class Cell:
         for index, creature in enumerate(self.creatures):
             if creature.type == 'empty place':
                 return True
+        return False
 
     def get_index_of_empty_place(self):
         for index, creature in enumerate(self.creatures):

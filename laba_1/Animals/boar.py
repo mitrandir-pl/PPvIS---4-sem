@@ -1,4 +1,4 @@
-from animal import Animal
+from .animal import Animal
 
 
 class Boar(Animal):
@@ -15,6 +15,8 @@ class Boar(Animal):
 
     def reproduce(self, field, region, cell_num):
         partner = super().check_reproduce(field, region, cell_num)
+        if partner is None:
+            return
         if partner.life_cycle is False:
             cell = field.area[region][cell_num]
             index = cell.get_index_of_empty_place()

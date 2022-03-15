@@ -15,8 +15,8 @@ class Movement:
                     if creature.type not in CAN_NOT_MOVE:
                         if creature.life_cycle is False:
                             index = creatures_copy.index(creature)
-                            field.add_to_cell_by_index(
-                                region, cell_num, index,
-                                EmptyPlace(field, region)
-                            )
-                            creature.move(field)
+                            if creature.move(field):
+                                field.add_to_cell_by_index(
+                                    region, cell_num, index,
+                                    EmptyPlace()
+                                )

@@ -1,5 +1,5 @@
 import random
-from cell import Cell
+from .cell import Cell
 
 
 class Field:
@@ -21,12 +21,12 @@ class Field:
             region = random.choice(list(self.area))
             cell = self.area[region][random.randint(0, 4)]
             cell.has_empty_place()
-            if cell.has_empty_place() is None:
+            if cell.has_empty_place() is False:
                 continue
             else:
                 index = cell.get_index_of_empty_place()
                 cell.add_by_index(index, creature)
-                break
+                return True
 
     def add_to_current_region(self, region, creature):
         for cell in self.area[region]:
@@ -50,3 +50,12 @@ class Field:
             for cell in lists_of_cells:
                 for creature in cell.creatures:
                     creature.life_cycle = False
+
+    def empty_count(self):
+        counter = 0
+        for lists_of_cells in self.area.values():
+            for cell in lists_of_cells:
+                for creature in cell.creatures:
+                    if creature.type == 'empty place':
+                        counter += 1
+        print(counter)
