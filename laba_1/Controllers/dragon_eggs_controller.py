@@ -1,0 +1,16 @@
+from Animals.animals import Dragon, DragonEgg
+from Field.cell import Cell
+from .creatures_controller import CreaturesController
+
+
+class DragonEggsController(CreaturesController):
+    
+    def make_decision(self, cell: Cell, egg: DragonEgg):
+        if egg._age == 3:
+            self.dragon_borning(cell, egg)
+        else:
+            egg._age += 1
+
+    def dragon_borning(self, cell, egg):
+        index = cell.creatures.index(egg)
+        cell.creatures[index] = Dragon()

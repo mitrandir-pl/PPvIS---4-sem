@@ -1,40 +1,45 @@
+import pickle
+
 from Field.field import Field
-from Animals.bear import Bear
-from Animals.dragon import Dragon
-from cycle import Cycle
-from empty_place import EmptyPlace
-from Animals.rabbit import Rabbit
-from Animals.boar import Boar
-from Plants.bash import Bash
+from Animals.animals import Bear, Dragon, Rabbit, Boar
+from Plants.plants import Bush
 
 
 class FileManager:
 
-    @staticmethod
-    def load(file_name: str) -> None:
-        forest = Field()
+    def __init__(self, file_name):
+        self._file_name = file_name
+
+    def load(self) -> Field:
+        field = Field()
         try:
-            with open(file_name, "r") as file:
-                for region, line in zip(forest.area, file):
+            with open(self._file_name, "r") as file:
+                for region, line in zip(field.area, file):
                     for creature in line.strip().split():
                         match creature:
                             case 'Bear':
-                                forest.add_to_current_region(region, Bear())
+                                field.add_to_current_region(region, Bear())
                             case 'Dragon':
-                                forest.add_to_current_region(region, Dragon())
+                                field.add_to_current_region(region, Dragon())
                             case 'Rabbit':
-                                forest.add_to_current_region(region, Rabbit())
+                                field.add_to_current_region(region, Rabbit())
                             case 'Boar':
-                                forest.add_to_current_region(region, Boar())
-                            case 'Bash':
-                                forest.add_to_current_region(region, Bash())
-                            case 'Empty':
-                                forest.add_to_current_region(region, EmptyPlace())
-                forest.show_field()
-                Cycle.life(forest)
+                                field.add_to_current_region(region, Boar())
+                            case 'Bush':
+                                field.add_to_current_region(region, Bush())
+                            case 'None':
+                                field.add_to_current_region(region, None)
         except FileNotFoundError:
-            print('ERROR. No such file or directory:', file_name)
+            print('ERROR. No such file or directory:', self._file_name)
+        # try:
+        #     with open('data.pickle', 'rb') as f:
+        #         field = pickle.load(f)
+        # except FileNotFoundError:
+        #     print('ERROR. No such file or directory:', self._file_name)
+        # interface = FieldInterface(field)
+        # interface.show_field()
+        return field
 
-    @staticmethod
-    def upload(file_name: str) -> None:
-        pass
+    def upload(self, field) -> None:
+        with open('data.pickle', 'wb') as f:
+            pickle.dump(field, f)
