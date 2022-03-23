@@ -10,7 +10,7 @@ class Cell:
         self.creatures[index] = creature
 
     def is_empty(self):
-        return len(self.creatures) < 5
+        return len(self.creatures) < 9
 
     def has_empty_place(self):
         for creature in self.creatures:

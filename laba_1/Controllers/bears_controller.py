@@ -19,17 +19,17 @@ class BearsController(CreaturesController):
                     self.move(cell, bear)
                     self.starvation(bear)
             else:
-                if bear._hunger > 6 and bear._health >= 70:
+                if bear._hunger > 9 and bear._health >= 70:
                     if self.cell_controller.is_creature_in_cell(cell, 'boar'):
                         boar = self.cell_controller.get_creature(cell, 'boar')
                         self.trying_to_eat_boar(cell, bear, boar)
-                if bear._hunger > 5:
-                    if self.cell_controller.is_creature_in_cell(cell, 'rabbit'):
-                        rabbit = self.cell_controller.get_creature(cell, 'rabbit')
-                        self.trying_to_eat_rabbit(cell, bear, rabbit)
-                    elif self.cell_controller.is_creature_in_cell(cell, 'bush'):
+                if bear._hunger > 8:
+                    if self.cell_controller.is_creature_in_cell(cell, 'bush'):
                         bush = self.cell_controller.get_creature(cell, 'bush')
                         self.eating_bush(cell, bear, bush)
+                    elif self.cell_controller.is_creature_in_cell(cell, 'rabbit'):
+                        rabbit = self.cell_controller.get_creature(cell, 'rabbit')
+                        self.trying_to_eat_rabbit(cell, bear, rabbit)
                 elif bear._hunger <= 5:
                     self.reproduce(cell, bear)
                 if random.randint(0, 100) < CHANCE_TO_GO_AWAY:
@@ -46,5 +46,5 @@ class BearsController(CreaturesController):
                 cell.creatures[index] = Bear()
 
     def weakening(self, bear: Bear):
-        bear._health -= 5
+        bear._health -= 7
         bear._hunger += 1

@@ -10,21 +10,31 @@ if __name__ == "__main__":
     forest = file_manager.load()
     field_interface = FieldInterface(forest)
     field_interface.show_field()
+    # counter = {
+    #         'dragons': 0,
+    #         'bears': 0,
+    #         'boars': 0,
+    #         'rabbits': 0,
+    #         'dragon eggs': 0,
+    #         'bushs': 0,
+    #         'empty': 0,
+    #     }
+    # for key, value in counter.items():
+    #     print(f'{key}: {value}')
     forest_life_cycle = Cycle(forest)
-    while True:
-        counter = {
-            'dragons': 0,
-            'bears': 0,
-            'boars': 0,
-            'rabbits': 0,
-            'dragon eggs': 0,
-            'bushs': 0,
-            'empty': 0,
-        }
-        forest_life_cycle.life_cycle(counter)
+    for i in range(40):
+        # counter['dragons'] = 0
+        # counter['bears'] = 0
+        # counter['boars'] = 0
+        # counter['rabbits'] = 0
+        # counter['dragon eggs'] = 0
+        # counter['empty'] = 0
+        # counter['bushs'] = 0
+        
+        forest_life_cycle.life_cycle()
         field_interface.show_field()
-        for key, value in counter.items():
-            print(f'{key}: {value}')
+        # for key, value in counter.items():
+        #     print(f'{key}: {value}')
         check_exit = input()
         if check_exit == 'q':
             raise SystemExit

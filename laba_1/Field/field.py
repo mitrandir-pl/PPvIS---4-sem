@@ -13,13 +13,13 @@ class Field:
             'west': [],
         }
         for region in self.area:
-            for _ in range(5):
+            for _ in range(9):
                 self.area[region].append(Cell())
 
     def add_to_field(self, creature):
         for _ in range(5):
             region = random.choice(list(self.area))
-            cell = self.area[region][random.randint(0, 4)]
+            cell = self.area[region][random.randint(0, 8)]
             if not cell.has_empty_place():
                 continue
             else:

@@ -5,7 +5,7 @@ from Animals.animals import Boar
 from .creatures_controller import CreaturesController
 
 
-CHANCE_TO_LOOK_AROUND_FOR_BOAR = 15
+CHANCE_TO_LOOK_AROUND_FOR_BOAR = 20
 CHANCE_TO_GO_AWAY = 25
 
 
@@ -22,14 +22,11 @@ class BoarsController(CreaturesController):
                     self.move(cell, boar)
                     self.starvation(boar)
             else:
-                if boar._hunger > 5:
+                if boar._hunger > 8:
                     if self.cell_controller.is_creature_in_cell(cell, 'rabbit'):
                         rabbit = self.cell_controller.get_creature(cell, 'rabbit')
                         self.trying_to_eat_rabbit(cell, boar, rabbit)
-                    elif self.cell_controller.is_creature_in_cell(cell, 'bush'):
-                        bush = self.cell_controller.get_creature(cell, 'bush')
-                        self.eating_bush(cell, boar, bush)
-                elif boar._hunger <= 6:
+                elif boar._hunger <= 5:
                     self.reproduce(cell, boar)
                 if random.randint(0, 100) < CHANCE_TO_GO_AWAY:
                     self.move(cell, boar)
@@ -45,5 +42,5 @@ class BoarsController(CreaturesController):
                 cell.creatures[index] = Boar()
 
     def weakening(self, boar: Boar):
-        boar._health -= 5
+        boar._health -= 6
         boar._hunger += 1

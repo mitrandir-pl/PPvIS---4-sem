@@ -7,7 +7,7 @@ from Field.cell import Cell
 from Field.field import Field
 
 
-RABBIT_RUN_AWAY_CHANCE = 40
+RABBIT_RUN_AWAY_CHANCE = 50
 
 
 class CreaturesController(ABC):
@@ -25,7 +25,7 @@ class CreaturesController(ABC):
         if eater._health >= bear._health:
             self.eating(cell, eater, bear)
             eater._health += 30
-            eater._hunger -= 6
+            eater._hunger -= 10
         else:
             eater._health -= 30
 
@@ -34,7 +34,7 @@ class CreaturesController(ABC):
         if eater._health >= boar._health:
             self.eating(cell, eater, boar)
             eater._health += 20
-            eater._hunger -= 5
+            eater._hunger -= 8
         else:
             eater._health -= 20
 
@@ -42,12 +42,12 @@ class CreaturesController(ABC):
         if random.randint(0, 100) > RABBIT_RUN_AWAY_CHANCE:
             self.eating(cell, eater, rabbit)
             eater._health += 15
-            eater._hunger -= 4
+            eater._hunger -= 6
 
     def eating_bush(self, cell, eater, bush):
         self.eating(cell, eater, bush)
         eater._health += 10
-        eater._hunger -= 3
+        eater._hunger -= 4
 
     def eating(self, cell, eater, victim):
         index = self.cell_controller.get_victim_place(cell, victim)
@@ -64,9 +64,8 @@ class CreaturesController(ABC):
 
     def starvation(self, creature):
         creature._hunger += 1
-        creature._health -= 7
 
     def move(self, cell: Cell, creature):
-        self._field.add_to_field(creature)
-        index = cell.creatures.index(creature)
-        cell.creatures[index] = None
+        if self._field.add_to_field(creature):
+            index = cell.creatures.index(creature)
+            cell.creatures[index] = None

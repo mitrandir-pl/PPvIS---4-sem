@@ -6,7 +6,7 @@ from Field.field import Field
 from Plants.plants import Bush
 
 
-REPRODUCE_CHANCE = 10
+REPRODUCE_CHANCE = 5
 
 
 class BushsController:

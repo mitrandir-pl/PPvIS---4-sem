@@ -1,4 +1,5 @@
 import random
+import emoji
 
 
 class Animal():
@@ -16,9 +17,6 @@ class Animal():
     def sex(self):
         return self._sex
 
-    def __str__(self):
-        return self._type
-
 
 class Bear(Animal):
 
@@ -26,6 +24,9 @@ class Bear(Animal):
         super().__init__()
         self._type = 'bear'
         self._health = 100
+
+    def __str__(self):
+        return emoji.emojize(':bear:')
 
 
 class Boar(Animal):
@@ -35,22 +36,28 @@ class Boar(Animal):
         self._type = 'boar'
         self._health = 80
 
+    def __str__(self):
+        return emoji.emojize(':boar:')
+
 
 class Dragon(Animal):
 
     def __init__(self):
         super().__init__()
         self._type = 'dragon'
-        self._health = 200
+        self._health = 400
 
-
+    def __str__(self):
+        return emoji.emojize(':dragon:')
 class Rabbit(Animal):
 
     def __init__(self):
         super().__init__()
         self._type = 'rabbit'
-        self._health = 60
+        self._health = 70
 
+    def __str__(self):
+        return emoji.emojize(':rabbit_face:')
 
 class DragonEgg:
 
@@ -63,4 +70,4 @@ class DragonEgg:
         return self._type
 
     def __str__(self):
-        return self._type
+        return emoji.emojize(':egg:')
