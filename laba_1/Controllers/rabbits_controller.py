@@ -45,5 +45,5 @@ class RabbitsController(CreaturesController):
                 cell.creatures[index] = Rabbit()
 
     def weakening(self, rabbit: Rabbit):
-        rabbit._health -= 12
+        rabbit._health -= 18
         rabbit._hunger += 1

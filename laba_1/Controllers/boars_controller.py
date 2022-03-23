@@ -42,5 +42,5 @@ class BoarsController(CreaturesController):
                 cell.creatures[index] = Boar()
 
     def weakening(self, boar: Boar):
-        boar._health -= 6
+        boar._health -= 9
         boar._hunger += 1

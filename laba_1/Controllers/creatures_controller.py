@@ -55,7 +55,7 @@ class CreaturesController(ABC):
         self.cell_controller.move_to_victim_place(cell, eater, index)
 
     def is_alive(self, creature):
-        return creature._health > 0
+        return creature._health > 0 and creature._hunger < 20
 
     def dyuing(self, cell, dying_creature):
         dying_creature_index = cell.creatures.index(dying_creature)

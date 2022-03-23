@@ -49,22 +49,3 @@ class Cycle:
                                 dragon_eggs_controller.make_decision(
                                     cell, creature
                                 )
-        # for list_of_cells in self.field.area.values():
-        #     for cell in list_of_cells:
-        #         for creature in cell.creatures:
-        #             if creature:
-        #                 match creature.type:
-        #                     case 'bear':
-        #                         counter['bears'] += 1
-        #                     case 'dragon':
-        #                         counter['dragons'] += 1
-        #                     case 'rabbit':
-        #                         counter['rabbits'] += 1
-        #                     case 'boar':
-        #                         counter['boars'] += 1
-        #                     case 'bush':
-        #                         counter['bushs'] += 1
-        #                     case 'dragon_egg':
-        #                         counter['dragon eggs'] += 1
-        #             else:
-        #                 counter['empty'] += 1

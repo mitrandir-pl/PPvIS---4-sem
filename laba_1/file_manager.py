@@ -2,6 +2,7 @@ import pickle
 
 from Field.field import Field
 from Animals.animals import Bear, Dragon, Rabbit, Boar
+from Interfaces.field_interface import FieldInterface
 from Plants.plants import Bush
 
 
@@ -10,7 +11,7 @@ class FileManager:
     def __init__(self, file_name):
         self._file_name = file_name
 
-    def load(self) -> Field:
+    def load_template(self) -> Field:
         field = Field()
         try:
             with open(self._file_name, "r") as file:
@@ -30,16 +31,20 @@ class FileManager:
                             case 'None':
                                 field.add_to_current_region(region, None)
         except FileNotFoundError:
-            print('ERROR. No such file or directory:', self._file_name)
-        # try:
-        #     with open('data.pickle', 'rb') as f:
-        #         field = pickle.load(f)
-        # except FileNotFoundError:
-        #     print('ERROR. No such file or directory:', self._file_name)
-        # interface = FieldInterface(field)
-        # interface.show_field()
+            print('ERROR. No such file:', self._file_name)
+            return False
+        return field
+
+    def load_previous_simulation(self):
+        field = Field()
+        try:
+            with open('Field/field.pickle', 'rb') as f:
+                field = pickle.load(f)
+        except FileNotFoundError:
+            print('ERROR. No file with previous simulation')
+            return False
         return field
 
     def upload(self, field) -> None:
-        with open('data.pickle', 'wb') as f:
+        with open('Field/field.pickle', 'wb') as f:
             pickle.dump(field, f)

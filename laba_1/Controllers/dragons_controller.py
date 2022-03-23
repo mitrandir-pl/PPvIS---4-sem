@@ -41,5 +41,5 @@ class DragonsController(CreaturesController):
                 cell.creatures[index] = DragonEgg()
 
     def weakening(self, bear: Dragon):
-        bear._health -= 20
+        bear._health -= 30
         bear._hunger += 1
