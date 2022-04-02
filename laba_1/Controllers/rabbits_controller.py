@@ -13,7 +13,7 @@ CHANCE_TO_GO_AWAY = 25
 
 class RabbitsController(CreaturesController):
     
-    def make_decision(self, cell: Cell, rabbit: Rabbit):
+    def make_decision(self, cell: Cell, rabbit: Rabbit) -> None:
         if self.is_alive(rabbit):
             self.weakening(rabbit)
             if random.randint(0, 100) < CHANCE_TO_LOOK_AROUND_FOR_RABBIT:
@@ -37,13 +37,13 @@ class RabbitsController(CreaturesController):
         else:
             self.dyuing(cell, rabbit)
 
-    def reproduce(self, cell: Cell, rabbit: Rabbit):
+    def reproduce(self, cell: Cell, rabbit: Rabbit) -> None:
         if cell.has_empty_place():
             partner = self.cell_controller.get_partner(cell, rabbit)
             if partner:
                 index = cell.get_index_of_empty_place()
                 cell.creatures[index] = Rabbit()
 
-    def weakening(self, rabbit: Rabbit):
+    def weakening(self, rabbit: Rabbit) -> None:
         rabbit._health -= 18
         rabbit._hunger += 1

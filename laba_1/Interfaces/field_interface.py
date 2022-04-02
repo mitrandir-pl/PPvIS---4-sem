@@ -1,12 +1,15 @@
 import emoji
 
+from Field.field import Field
+from Field.cell import Cell
+
 
 class FieldInterface:
 
-    def __init__(self, field):
+    def __init__(self, field: Field) -> None:
         self.field = field
 
-    def show_field(self):
+    def show_field(self) -> None:
         north = self.field.area['north']
         east = self.field.area['east']
         center = self.field.area['center']
@@ -22,7 +25,8 @@ class FieldInterface:
         self.print_region(south, 3, 6)
         self.print_region(south, 6, 9)
 
-    def print_region(self, region, start_index, end_index):
+    def print_region(self, region: dict[str, list[Cell]],
+                     start_index: int, end_index: int) -> None:
         print('\n' + 36*' ', end='')
         for i in range(start_index, end_index):
             self.print_first_line(region, i)
@@ -37,8 +41,11 @@ class FieldInterface:
             print(end='  ')
         print(end='\n\n')
 
-    def print_middle_regions(self, region1, region2,
-                             region3, start_index, end_index):
+    def print_middle_regions(
+            self, region1: dict[str, list[Cell]],
+            region2: dict[str, list[Cell]],
+            region3: dict[str, list[Cell]],
+            start_index: int, end_index: int) -> None:
         print('\n', end='')
         for i in range(start_index, end_index):
             self.print_first_line(region1, i)
@@ -71,24 +78,26 @@ class FieldInterface:
             print(end='   ')
         print(end='\n\n')
 
-    def print_first_line(self, region, cell_num):
+    def print_first_line(self, region: dict[str, list[Cell]],
+                         cell_num: int) -> None:
         for j in range(3):
             if region[cell_num].creatures[j]:
                 print(region[cell_num].creatures[j], end=' ')
             else:
                 print(emoji.emojize(':black_large_square:'), end=' ')
 
-    def print_second_line(self, region, cell_num):
+    def print_second_line(self, region: dict[str, list[Cell]],
+                          cell_num: int) -> None:
         for j in range(3, 6):
             if region[cell_num].creatures[j]:
                 print(region[cell_num].creatures[j], end=' ')
             else:
                 print(emoji.emojize(':black_large_square:'), end=' ')
 
-    def print_third_line(self, region, cell_num):
+    def print_third_line(self, region: dict[str, list[Cell]],
+                         cell_num: int) -> None:
         for j in range(6, 9):
             if region[cell_num].creatures[j]:
                 print(region[cell_num].creatures[j], end=' ')
             else:
                 print(emoji.emojize(':black_large_square:'), end=' ')
-

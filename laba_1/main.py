@@ -11,6 +11,7 @@ if __name__ == "__main__":
     print('2. Continue previous simulation')
     while True:
         choice = input('Enter: ')
+        forest = False
         match choice:
             case '1':
                 file_manager = FileManager('Field/field.txt')
@@ -28,6 +29,7 @@ if __name__ == "__main__":
     while True:
         forest_life_cycle.life_cycle()
         field_interface.show_field()
+        print('To exit enter q:', end=' ')
         check_exit = input()
         if check_exit == 'q':
             file_manager.upload(forest)

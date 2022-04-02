@@ -8,7 +8,7 @@ from Plants.plants import Bush
 
 class FileManager:
 
-    def __init__(self, file_name):
+    def __init__(self, file_name: str) -> None:
         self._file_name = file_name
 
     def load_template(self) -> Field:
@@ -35,7 +35,7 @@ class FileManager:
             return False
         return field
 
-    def load_previous_simulation(self):
+    def load_previous_simulation(self) -> Field:
         field = Field()
         try:
             with open('Field/field.pickle', 'rb') as f:
@@ -45,6 +45,6 @@ class FileManager:
             return False
         return field
 
-    def upload(self, field) -> None:
+    def upload(self, field: Field) -> None:
         with open('Field/field.pickle', 'wb') as f:
             pickle.dump(field, f)

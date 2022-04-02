@@ -33,13 +33,13 @@ class DragonsController(CreaturesController):
         else:
             self.dyuing(cell, dragon)
 
-    def reproduce(self, cell: Cell, dragon: Dragon):
+    def reproduce(self, cell: Cell, dragon: Dragon) -> None:
         if cell.has_empty_place():
             partner = self.cell_controller.get_partner(cell, dragon)
             if partner:
                 index = cell.get_index_of_empty_place()
                 cell.creatures[index] = DragonEgg()
 
-    def weakening(self, bear: Dragon):
-        bear._health -= 30
-        bear._hunger += 1
+    def weakening(self, dragon: Dragon) -> None:
+        dragon._health -= 30
+        dragon._hunger += 1

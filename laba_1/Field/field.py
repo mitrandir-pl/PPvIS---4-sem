@@ -4,7 +4,7 @@ from .cell import Cell
 
 class Field:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.area = {
             'center': [],
             'south': [],
@@ -17,7 +17,7 @@ class Field:
                 self.area[region].append(Cell())
 
     def add_to_field(self, creature):
-        for _ in range(5):
+        for _ in range(3):
             region = random.choice(list(self.area))
             cell = self.area[region][random.randint(0, 8)]
             if not cell.has_empty_place():

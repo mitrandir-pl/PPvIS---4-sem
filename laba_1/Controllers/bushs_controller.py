@@ -6,7 +6,7 @@ from Field.field import Field
 from Plants.plants import Bush
 
 
-REPRODUCE_CHANCE = 5
+REPRODUCE_CHANCE = 1
 
 
 class BushsController:
@@ -16,24 +16,25 @@ class BushsController:
         self.cell_controller = cells_controller
         self._field = field
     
-    def make_decision(self, cell: Cell, bush: Bush):
+    def make_decision(self, cell: Cell, bush: Bush) -> None:
         if self.is_alive(bush):
             self.weakening
-            if random.randint(0, 100) < REPRODUCE_CHANCE:
-                self.reproduce(cell, bush)
+            if random.randint(0, 100) == REPRODUCE_CHANCE:
+                self.reproduce()
         else:
-            self.dying
+            breakpoint()
+            self.dying(cell, bush)
 
-    def reproduce(self, cell: Cell, boar: Bush):
+    def reproduce(self) -> None:
         self._field.add_to_field(Bush())
 
-    def is_alive(self, creature):
+    def is_alive(self, creature: Bush) -> bool:
         return creature._health > 0
 
-    def weakening(self, bush: Bush):
-        bush._health -= 10
+    def weakening(self, bush: Bush) -> None:
+        bush._health -= 70
 
-    def dyuing(self, cell, dying_plant):
+    def dying(self, cell: Cell, dying_plant: Bush) -> None:
         dying_plant_index = cell.creatures.index(dying_plant)
         cell.creatures[dying_plant_index] = None
         del dying_plant

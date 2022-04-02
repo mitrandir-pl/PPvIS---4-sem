@@ -1,6 +1,10 @@
+from Field.cell import Cell
+from Animals.animals import Animal
+
+
 class CellsController:
 
-    def is_creature_in_cell(self, cell, creature_type):
+    def is_creature_in_cell(self, cell: Cell, creature_type: str) -> bool:
         for creature in cell.creatures:
             if creature:
                 if creature.type == creature_type:
@@ -12,7 +16,7 @@ class CellsController:
                 if creature.type == creature_type:
                     return creature
 
-    def get_partner(self, cell, animal):
+    def get_partner(self, cell: Cell, animal: Animal):
         sex_for_search = 'male' if animal.sex == 'female' else 'female'
         for creature in cell.creatures:
             if creature:

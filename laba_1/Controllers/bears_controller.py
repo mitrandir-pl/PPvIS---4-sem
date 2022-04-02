@@ -5,7 +5,7 @@ from Field.cell import Cell
 from .creatures_controller import CreaturesController
 
 
-CHANCE_TO_LOOK_AROUND_FOR_BEAR = 15
+CHANCE_TO_LOOK_AROUND_FOR_BEAR = 100
 CHANCE_TO_GO_AWAY = 25
 
 
@@ -38,13 +38,13 @@ class BearsController(CreaturesController):
         else:
             self.dyuing(cell, bear)
 
-    def reproduce(self, cell: Cell, bear: Bear):
+    def reproduce(self, cell: Cell, bear: Bear) -> None:
         if cell.has_empty_place():
             partner = self.cell_controller.get_partner(cell, bear)
             if partner:
                 index = cell.get_index_of_empty_place()
                 cell.creatures[index] = Bear()
 
-    def weakening(self, bear: Bear):
+    def weakening(self, bear: Bear) -> None:
         bear._health -= 11
         bear._hunger += 1

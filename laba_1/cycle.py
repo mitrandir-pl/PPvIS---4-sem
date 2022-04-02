@@ -5,11 +5,12 @@ from Controllers.cells_controller import CellsController
 from Controllers.dragon_eggs_controller import DragonEggsController
 from Controllers.dragons_controller import DragonsController
 from Controllers.rabbits_controller import RabbitsController
+from Field.field import Field
 
 
 class Cycle:
 
-    def __init__(self, field) -> None:
+    def __init__(self, field: Field) -> None:
         self.field = field
 
     def life_cycle(self) -> None:

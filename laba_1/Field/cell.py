@@ -1,6 +1,6 @@
 class Cell:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.creatures = []
 
     def add(self, creature):
