@@ -1,0 +1,42 @@
+MenuScreen:
+
+
+<MenuScreen>:
+    BoxLayout:
+        Button:
+            text: 'Goto settings'
+            on_press: root.manager.current = 'settings'
+        Button:
+            text: 'Quit'
+
+<SettingsScreen>:
+    BoxLayout:
+        Button:
+            text: 'My settings button'
+        Button:
+            text: 'Back to menu'
+            on_press: root.manager.current = 'menu'
+
+
+
+
+#BoxLayoutTest:
+
+
+<BoxLayoutTest>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Menu"
+        Button:
+            text: "Add"
+            size_hint: .5, 1
+            pos_hint: { "center_x": .5 }
+        Button:
+            text: "Delete"
+            size_hint: .5, 1
+            pos_hint: { "center_x": .5 }
+        Button:
+            text: "Show"
+            size_hint: .5, 1
+            pos_hint: { "center_x": .5 }
