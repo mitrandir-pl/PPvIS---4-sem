@@ -31,11 +31,20 @@ class Reader(xml.sax.ContentHandler):
             self.circulation = content
 
     def endElement(self, name):
-        if self.current == "asdjda":
-            self.client_data.append(self.name)
-        elif self.current == "jjfjnfe":
-            self.client_data.append(self.account_number)
-
+        if self.current == "book_name":
+            self.client_data.append(self.book_name)
+        elif self.current == "author_name":
+            self.client_data.append(self.author_name)
+        elif self.current == "author_last_name":
+            self.client_data.append(self.author_last_name)
+        elif self.current == "author_patronymic":
+            self.client_data.append(self.author_patronymic)
+        elif self.current == "publisher":
+            self.client_data.append(self.publisher)
+        elif self.current == "amount_of_volumes":
+            self.client_data.append(self.amount_of_volumes)
+        elif self.current == "circulation":
+            self.client_data.append(self.circulation)
         if len(self.client_data) == 7:
             self.data_table.append(tuple(self.client_data))
             self.client_data = []
@@ -56,7 +65,7 @@ class Writer:
             temp_child = self.dom_tree.createElement(value)
             client.appendChild(temp_child)
 
-            node_text = self.dom_tree.createTextNode(data[value].strip())
+            node_text = self.dom_tree.createTextNode(str(data[value]))
             temp_child.appendChild(node_text)
 
         self.rows.append(client)
@@ -106,8 +115,8 @@ if __name__ == '__main__':
         "circulation": "0",
     })
     writer.create_xml_file()
-    # handler = Reader()
-    # parser = xml.sax.make_parser()
-    # parser.setContentHandler(handler)
-    # parser.parse('test.xml')
-    # print(handler.data_table)
+    handler = Reader()
+    parser = xml.sax.make_parser()
+    parser.setContentHandler(handler)
+    parser.parse('test.xml')
+    print(handler.data_table)
