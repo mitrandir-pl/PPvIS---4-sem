@@ -40,6 +40,27 @@ class DataBaseController:
                 found_books.append(book)
         return found_books
 
+    def search_by_book_name(self, book_name):
+        found_books = list()
+        for book in self._list_of_books:
+            if book.book_name == book_name:
+                found_books.append(book)
+        return found_books
+
+    def search_less_than_current_amount(self, amount):
+        found_books = list()
+        for book in self._list_of_books:
+            if int(book.amount_of_volumes) < int(amount):
+                found_books.append(book)
+        return found_books
+
+    def search_more_than_current_amount(self, amount):
+        found_books = list()
+        for book in self._list_of_books:
+            if int(book.amount_of_volumes) > int(amount):
+                found_books.append(book)
+        return found_books
+
     def delete_by_author_last_name(self, input_):
         counter = 0
         index = 0
@@ -51,8 +72,7 @@ class DataBaseController:
                 index += 1
         return True if counter > 0 else False
 
-    def delete_by_author_and_publisher(self, input_):
-        author, publisher = input_.split()
+    def delete_by_author_and_publisher(self, author, publisher):
         counter = 0
         index = 0
         for _ in range(len(self._list_of_books)):

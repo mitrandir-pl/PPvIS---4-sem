@@ -16,8 +16,6 @@ from kivy.uix.textinput import TextInput
 from Controller.controller import DataBaseController
 from Model.model import Book
 
-from laba_2.Controller import controller
-
 
 db_controller = DataBaseController()
 
@@ -192,15 +190,20 @@ class RemoveScreen(Screen):
         fio_author_remove_button = Button(
             text="Author last name", font_size=30, on_press=lambda x: self.set_choice(1, fio_author_remove_button))
         author_and_publisher_remove_button = Button(
-            text="Author last name and Publisher", font_size=30, on_press=lambda x: self.set_choice(2, author_and_publisher_remove_button))
+            text="Author last name and Publisher", font_size=30,
+            on_press=lambda x: self.set_choice(2, author_and_publisher_remove_button))
         amount_of_volumes_remove_button = Button(
-            text="Amount of volumes", font_size=30, on_press=lambda x: self.set_choice(3, amount_of_volumes_remove_button))
+            text="Amount of volumes", font_size=30,
+            on_press=lambda x: self.set_choice(3, amount_of_volumes_remove_button))
         book_name_remove_button = Button(
-            text="Book Name", font_size=30, on_press=lambda x: self.set_choice(4, book_name_remove_button))
+            text="Book Name", font_size=30,
+            on_press=lambda x: self.set_choice(4, book_name_remove_button))
         less_than_specified_amount_remove_button = Button(
-            text="Less than specified amount of volumes", font_size=30, on_press=lambda x: self.set_choice(5, less_than_specified_amount_remove_button))
+            text="Less than specified amount of volumes", font_size=30,
+            on_press=lambda x: self.set_choice(5, less_than_specified_amount_remove_button))
         more_than_specified_amount_remove_button = Button(
-            text="More than specified amount of volumes", font_size=30, on_press=lambda x: self.set_choice(6, more_than_specified_amount_remove_button))
+            text="More than specified amount of volumes", font_size=30,
+            on_press=lambda x: self.set_choice(6, more_than_specified_amount_remove_button))
         self.choice_buttons = list()
         self.choice_buttons.append(fio_author_remove_button)
         self.choice_buttons.append(author_and_publisher_remove_button)
@@ -257,18 +260,33 @@ class RemoveScreen(Screen):
                     case 1:
                         is_removed = self._controller.delete_by_author_last_name(self.remove_input.text)
                     case 2:
-                        is_removed = self._controller.delete_by_author_and_publisher(self.remove_input.text)
+                        try:
+                            author, publisher = self.remove_input.text.split()
+                            is_removed = self._controller.delete_by_author_and_publisher(author, publisher)
+                        except Exception:
+                            self.massage_wrong_input()
+                            self.remove_input.background_color = [1, 0, 0, 1]
+                            return
                     case 3:
                         if self.is_type_is_int(self.remove_input):
                             is_removed = self._controller.delete_by_amount_of_volumes(self.remove_input.text)
+                        else:
+                            self.massage_wrong_input()
+                            return
                     case 4:
                         is_removed = self._controller.delete_by_book_name(self.remove_input.text)
                     case 5:
                         if self.is_type_is_int(self.remove_input):
                             is_removed = self._controller.delete_less_than_amount_of_volumes(self.remove_input.text)
+                        else:
+                            self.massage_wrong_input()
+                            return
                     case 6:
                         if self.is_type_is_int(self.remove_input):
                             is_removed = self._controller.delete_more_than_amount_of_volumes(self.remove_input.text)
+                        else:
+                            self.massage_wrong_input()
+                            return
                 if is_removed:
                     self.menu_label.text = "Remove complete!"
                 else:
@@ -277,6 +295,8 @@ class RemoveScreen(Screen):
         else:
             self.menu_label.text = "Choice way of remove!"
 
+    def massage_wrong_input(self):
+        self.menu_label.text = "Invalid input!"
 
 class ShowScreen(Screen):
     fields_on_screens = 5
@@ -289,38 +309,37 @@ class ShowScreen(Screen):
         self.present_fields_screen = None
         self._controller = db_controller
 
-        # test_layout = AnchorLayout(anchor_x='left', anchor_y="top")
         test_layout = GridLayout(cols=5, padding=[0, 300, 0, 80])
         travel_layout = AnchorLayout(anchor_x='left', anchor_y="bottom")
         search_columns = GridLayout(cols=2, padding=[0, 0, 0, 80], row_force_default=True,
                                     row_default_height=(300/7))
         search_author_surname = Button(text="Search by author last name", background_color=[1, 1, 1, 1],
-                                       on_press=lambda x: self.set_search(0, search_author_surname))
+                                       on_press=lambda x: self.set_search(1, search_author_surname))
         self.author_surname_input = TextInput()
         search_author_surname_and_publisher = Button(
             text="Search by author last name and publisher",
             background_color=[1, 1, 1, 1],
-            on_press=lambda x: self.set_search(1, search_author_surname_and_publisher))
+            on_press=lambda x: self.set_search(2, search_author_surname_and_publisher))
         self.author_surname_and_publisher_input = TextInput()
         search_amount_of_values = Button(
             text="Search by amount of values",
             background_color=[1, 1, 1, 1],
-            on_press=lambda x: self.set_search(2, search_amount_of_values)
+            on_press=lambda x: self.set_search(3, search_amount_of_values)
         )
         self.amount_of_values_input = TextInput()
         search_book_name = Button(text="Search by book name", background_color=[1, 1, 1, 1],
-                                  on_press=lambda x: self.set_search(3, search_book_name))
+                                  on_press=lambda x: self.set_search(4, search_book_name))
         self.book_name_input = TextInput()
         search_less_than_current = Button(
             text="Search less than current amount of values",
             background_color=[1, 1, 1, 1],
-            on_press=lambda x: self.set_search(4, search_less_than_current)
+            on_press=lambda x: self.set_search(5, search_less_than_current)
         )
         self.less_than_current = TextInput()
         search_more_than_current = Button(
             text="Search more than current amount of values",
             background_color=[1, 1, 1, 1],
-            on_press=lambda x: self.set_search(5, search_more_than_current)
+            on_press=lambda x: self.set_search(6, search_more_than_current)
         )
         self.more_than_current = TextInput()
         self.search_info = Button(text="SEARCH", background_color=[1, 1, 1, 1],
@@ -410,8 +429,6 @@ class ShowScreen(Screen):
         bl2.add_widget(index_of_page_boxlayout)
         bl2.add_widget(number_of_elements_boxlayout)
         travel_layout.add_widget(bl2)
-        # new_test.add_widget(search_columns)
-        # new_test.add_widget(columns_names)
         test_layout.add_widget(columns_names)
         self.add_widget(search_columns)
         self.add_widget(travel_layout)
@@ -432,43 +449,106 @@ class ShowScreen(Screen):
             return False
 
     def search(self):
-        if -1 < self.choice < 7:
+        if 0 < self.choice < 7:
             match self.choice:
-                case 0:
+                case 1:
                     author_last_name = self.author_surname_input.text
                     if author_last_name == '':
                         self.author_surname_input.background_color = [1, 0, 0, 1]
                     else:
+                        self.author_surname_input.background_color = [1, 1, 1, 1]
                         found_books = self._controller.search_by_author_last_name(author_last_name)
                         self.show(found_books)
-                case 1:
+                        self.clear_search_fields()
+                case 2:
                     if self.author_surname_and_publisher_input.text == '':
                         self.author_surname_and_publisher_input.background_color = [1, 0, 0, 1]
                     else:
-                        author, publisher = self.author_surname_and_publisher_input.text.split()
-                        found_books = self._controller.search_by_author_last_name_and_publisher(author, publisher)
-                        self.show(found_books)
-                case 2:
-                    amount_of_volumes = self.amount_of_values_input.text
+                        try:
+                            author, publisher = self.author_surname_and_publisher_input.text.split()
+                            found_books = self._controller.search_by_author_last_name_and_publisher(author, publisher)
+                            self.author_surname_and_publisher_input.background_color = [1, 1, 1, 1]
+                            self.show(found_books)
+                            self.clear_search_fields()
+                        except Exception:
+                            self.massage_wrong_input()
+                case 3:
                     if self.amount_of_values_input.text == '':
                         self.amount_of_values_input.background_color = [1, 0, 0, 1]
                     else:
                         if self.is_type_is_int(self.amount_of_values_input):
-                            found_books = self._controller.search_by_amount_of_volumes(amount_of_volumes)
+                            self.clear_search_fields()
+                            self.amount_of_values_input.background_color = [1, 1, 1, 1]
+                            found_books = self._controller.search_by_amount_of_volumes(
+                                self.amount_of_values_input.text
+                            )
                             self.show(found_books)
-                case 3:
-                    is_removed = self._controller.delete_by_book_name(self.remove_input.text)
+                            self.clear_search_fields()
                 case 4:
-                    if self.is_type_is_int(self.remove_input):
-                        is_removed = self._controller.delete_less_than_amount_of_volumes(self.remove_input.text)
+                    if self.book_name_input.text == '':
+                        self.book_name_input.background_color = [1, 0, 0, 1]
+                    else:
+                        self.book_name_input.background_color = [1, 1, 1, 1]
+                        found_books = self._controller.search_by_book_name(
+                            self.book_name_input.text
+                        )
+                        self.show(found_books)
+                        self.clear_search_fields()
                 case 5:
-                    if self.is_type_is_int(self.remove_input):
-                        is_removed = self._controller.delete_more_than_amount_of_volumes(self.remove_input.text)
+                    if self.less_than_current.text == '':
+                        self.less_than_current.background_color = [1, 0, 0, 1]
+                    else:
+                        if self.is_type_is_int(self.less_than_current):
+                            self.less_than_current.background_color = [1, 1, 1, 1]
+                            found_books = self._controller.search_less_than_current_amount(
+                                self.less_than_current.text
+                            )
+                            self.show(found_books)
+                            self.clear_search_fields()
+                case 6:
+                    if self.more_than_current.text == '':
+                        self.more_than_current.background_color = [1, 0, 0, 1]
+                    else:
+                        if self.is_type_is_int(self.more_than_current):
+                            self.more_than_current.background_color = [1, 1, 1, 1]
+                            found_books = self._controller.search_more_than_current_amount(
+                                self.more_than_current.text
+                            )
+                            self.show(found_books)
+                            self.clear_search_fields()
+        else:
+            if self.present_fields_screen:
+                self.remove_widget(self.present_fields_screen)
+            self.present_fields_screen = GridLayout(
+                cols=5, padding=[0, 360, 0, 80],
+                row_force_default=True,
+                row_default_height=100)
+            not_found = Button(text="Choose variant of searching")
+            self.present_fields_screen.add_widget(not_found)
+            self.add_widget(self.present_fields_screen)
+
+    def massage_wrong_input(self):
+        if self.present_fields_screen:
+            self.remove_widget(self.present_fields_screen)
+        self.present_fields_screen = GridLayout(
+            cols=1, padding=[0, 360, 0, 80],
+            row_force_default=True,
+            row_default_height=100)
+        not_found = Button(text="Invalid input")
+        self.present_fields_screen.add_widget(not_found)
+        self.add_widget(self.present_fields_screen)
 
     def show(self, list_of_fields):
         if self.present_fields_screen:
             self.remove_widget(self.present_fields_screen)
         if not list_of_fields:
+            self.present_fields_screen = GridLayout(
+                cols=1, padding=[0, 360, 0, 80],
+                row_force_default=True,
+                row_default_height=100)
+            not_found = Button(text="Nothing found")
+            self.present_fields_screen.add_widget(not_found)
+            self.add_widget(self.present_fields_screen)
             return
         # 720 - 180
         self.list_of_screens = []
@@ -506,9 +586,26 @@ class ShowScreen(Screen):
             self.present_fields_screen = self.list_of_screens[index_of_screen]
             self.add_widget(self.present_fields_screen)
             self.number_of_page_text.text = str(self.index_of_screen + 1)
-            # self.add_widget(self.list_of_screens[index_of_screen])
+
+    def clear_search_fields(self):
+        self.author_surname_input.text = ''
+        self.author_surname_and_publisher_input.text = ''
+        self.amount_of_values_input.text = ''
+        self.book_name_input.text = ''
+        self.less_than_current.text = ''
+        self.more_than_current.text = ''
+        self.author_surname_input.background_color = [1, 1, 1, 1]
+        self.author_surname_and_publisher_input.background_color = [1, 1, 1, 1]
+        self.amount_of_values_input.background_color = [1, 1, 1, 1]
+        self.book_name_input.background_color = [1, 1, 1, 1]
+        self.less_than_current.background_color = [1, 1, 1, 1]
+        self.more_than_current.background_color = [1, 1, 1, 1]
 
     def on_leave(self, *args):
+        for button in self.search_buttons:
+            button.background_color = [1, 1, 1, 1]
+        self.choice = 0
+        self.clear_search_fields()
         if self.present_fields_screen:
             self.remove_widget(self.present_fields_screen)
 
