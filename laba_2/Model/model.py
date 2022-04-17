@@ -10,3 +10,4 @@ class Book:
     publisher: str = 'publisher'
     amount_of_volumes: int = 1
     circulation: int = 1000
+    summary_volumes: int = amount_of_volumes*circulation

@@ -6,15 +6,14 @@ from Model.model import Book
 
 class DataBaseController:
 
-    def __init__(self):
+    def __init__(self, file):
         self._reader = Reader()
-        self._writer = Writer('Utility/test.xml')
+        self._writer = Writer(file)
         self._list_of_books = list()
-        self.read_from_file()
+        self.read_from_file(file)
 
     def add_book(self, book):
         self._list_of_books.append(book)
-        print(self._list_of_books)
 
     def get_all_books(self):
         return self._list_of_books
@@ -129,9 +128,8 @@ class DataBaseController:
         return True if counter > 0 else False
 
     def write_data_into_file(self):
-        print(self._list_of_books)
         for book in self._list_of_books:
-            self._writer.create_xml_client({
+            self._writer.create_xml_book({
                 "book_name": book.book_name,
                 "author_name": book.author_name,
                 "author_last_name": book.author_last_name,
@@ -139,17 +137,16 @@ class DataBaseController:
                 "publisher": book.publisher,
                 "amount_of_volumes": book.amount_of_volumes,
                 "circulation": book.circulation,
+                "summary_volumes": int(book.amount_of_volumes) * int(book.circulation),
             })
         self._writer.create_xml_file()
 
-    def read_from_file(self):
+    def read_from_file(self, file):
         parser = xml.sax.make_parser()
         parser.setContentHandler(self._reader)
-        parser.parse('Utility/test.xml')
+        parser.parse(file)
         for book in self._reader.data_table:
             self._list_of_books.append(Book(
                 book[0], book[1], book[2], book[3],
-                book[4], book[5], book[6],
+                book[4], book[5], book[6], book[7]
             ))
-        print(self._list_of_books)
-        print(self._list_of_books)
