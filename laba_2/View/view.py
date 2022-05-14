@@ -322,7 +322,10 @@ class ShowScreen(Screen):
         test_layout = GridLayout(cols=5, padding=[0, 300, 0, 80])
         travel_layout = AnchorLayout(anchor_x='left', anchor_y="bottom")
         search_columns = GridLayout(cols=2, padding=[0, 0, 0, 80], row_force_default=True,
-                                    row_default_height=(300/7))
+                                    row_default_height=(300/8))
+        amount_of_pages = Button(text="Amount of records on page", background_color=GRAY)
+        self.amount_of_pages_input = TextInput()
+
         search_author_surname = Button(text="Search by author last name", background_color=GRAY,
                                        on_press=lambda x: self.set_search(1, search_author_surname))
         self.author_surname_input = TextInput()
@@ -377,6 +380,8 @@ class ShowScreen(Screen):
         search_columns.add_widget(self.more_than_current)
         search_columns.add_widget(search)
         search_columns.add_widget(self.search_info)
+        search_columns.add_widget(amount_of_pages)
+        search_columns.add_widget(self.amount_of_pages_input)
         columns_names = GridLayout(cols=6)
         book_name = Button(text="Book name", size_hint_x=None, size_hint_y=None, width=200, height=60, background_color=GREEN)
         author = Button(text="Author", size_hint_y=None, size_hint_x=None, width=200, height=60, background_color=GREEN)
@@ -565,13 +570,16 @@ class ShowScreen(Screen):
         self.list_of_screens = []
         self.index_of_screen = 0
         self.number_of_elements_text.text = str(len(list_of_fields))
+        if self.amount_of_pages_input.text:
+            if self.is_type_is_int(self.amount_of_pages_input):
+                ShowScreen.fields_on_screens = int(self.amount_of_pages_input.text)
         counter_of_screens = ShowScreen.fields_on_screens
         number_of_screens = 0
         for field in list_of_fields:
             if ShowScreen.fields_on_screens == counter_of_screens:
                 counter_of_screens = 0
                 book_record = GridLayout(cols=6, padding=[0, 360, 0, 80], row_force_default=True,
-                                         row_default_height=(720 - 160) / 10)
+                                         row_default_height=(360 - 80) / ShowScreen.fields_on_screens)
                 self.list_of_screens.append(book_record)
                 number_of_screens += 1
             author = f"{field.author_name} {field.author_last_name} {field.author_patronymic}"
@@ -669,6 +677,7 @@ class ChooseFile(Screen):
         pattern = re.compile("\w+.xml")
         if re.match(pattern, file):
             if file not in os.listdir("."):
+                create_button.disabled = True
                 dom_tree = minidom.Document()
                 pass_table = dom_tree.createElement("pass_table")
                 dom_tree.appendChild(pass_table)

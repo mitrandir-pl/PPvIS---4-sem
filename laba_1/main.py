@@ -1,9 +1,8 @@
 import os
 
-from Field.field import Field
-from file_manager import FileManager
 from Interfaces.field_interface import FieldInterface
 from cycle import Cycle
+from file_manager import FileManager
 
 if __name__ == "__main__":
     print('Choose variant: ')
