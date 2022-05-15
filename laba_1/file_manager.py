@@ -42,7 +42,7 @@ class FileManager:
                 field = pickle.load(f)
         except FileNotFoundError:
             print('ERROR. No file with previous simulation')
-            return False
+            raise SystemExit
         return field
 
     def upload(self, field: Field) -> None:

@@ -1,27 +1,24 @@
+import argparse
 import os
 
 from Interfaces.field_interface import FieldInterface
 from cycle import Cycle
 from file_manager import FileManager
 
+
+parser = argparse.ArgumentParser("Choose type of the interface")
+parser.add_argument("-p", "--previous", action="store_true", help="Continue previous simulation")
+parser.add_argument("-t", "--template", action="store_true", help="Start simulation using template")
+args = parser.parse_args()
+
+
 if __name__ == "__main__":
-    print('Choose variant: ')
-    print('1. Generate forest from template file')
-    print('2. Continue previous simulation')
-    while True:
-        choice = input('Enter: ')
-        forest = False
-        match choice:
-            case '1':
-                file_manager = FileManager('Field/field.txt')
-                forest = file_manager.load_template()
-            case '2':
-                file_manager = FileManager('Field/field.pickle')
-                forest = file_manager.load_previous_simulation()
-            case _:
-                print('Wrong input!!!')
-        if forest:
-            break
+    if args.template:
+        file_manager = FileManager('Field/field.txt')
+        forest = file_manager.load_template()
+    elif args.previous:
+        file_manager = FileManager('Field/field.pickle')
+        forest = file_manager.load_previous_simulation()
     field_interface = FieldInterface(forest)
     field_interface.show_field()
     forest_life_cycle = Cycle(forest)
