@@ -35,7 +35,8 @@ class FileManager:
             with open('model/field.pickle', 'rb') as f:
                 field = pickle.load(f)
         except FileNotFoundError:
-            return False
+            print("No file with previous simulation!!!")
+            raise SystemExit
         return field
 
     def upload(self, field: Field) -> None:
