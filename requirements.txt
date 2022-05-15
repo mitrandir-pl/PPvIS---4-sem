@@ -1,2 +1,4 @@
 emoji==1.7.0
 Kivy==2.1.0
+pygame==2.1.2
+PyYAML==6.0
