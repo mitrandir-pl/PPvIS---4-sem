@@ -17,7 +17,7 @@ class Field:
                 self.area[region].append(Cell())
 
     def add_to_field(self, creature):
-        for _ in range(3):
+        for _ in range(100):
             region = random.choice(list(self.area))
             cell = self.area[region][random.randint(0, 8)]
             if not cell.has_empty_place():
@@ -29,9 +29,17 @@ class Field:
 
     def add_to_current_region(self, region, creature):
         for cell in self.area[region]:
-            if cell.is_empty():
-                cell.add(creature)
-                break
+            for index, place in enumerate(cell.creatures):
+                if place is None:
+                    cell.creatures[index] = creature
+                    break
+
+    def add_to_current_cell(self, region, cell, creature):
+        cell = self.area[region][cell]
+        if cell.is_empty():
+            for index, place in enumerate(cell.creatures):
+                if place is None:
+                    cell.creatures[index] = creature
 
     def add_to_cell_by_index(self, region, cell_num, index, creature):
         self.area[region][cell_num].add_by_index(index, creature)

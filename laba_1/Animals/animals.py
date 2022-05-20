@@ -49,6 +49,8 @@ class Dragon(Animal):
 
     def __str__(self) -> str:
         return emoji.emojize(':dragon:')
+
+
 class Rabbit(Animal):
 
     def __init__(self) -> None:
