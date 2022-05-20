@@ -1,12 +1,23 @@
 import random
+import emoji
 
-from model.animals import Bear
-from model.cell import Cell
-from .creatures_controller import CreaturesController
+from model.field import Cell
+from .creatures_controller import CreaturesController, Animal
 
 
 CHANCE_TO_LOOK_AROUND_FOR_BEAR = 100
 CHANCE_TO_GO_AWAY = 45
+
+
+class Bear(Animal):
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._type = 'bear'
+        self._health = 100
+
+    def __str__(self) -> str:
+        return emoji.emojize(':bear:')
 
 
 class BearsController(CreaturesController):

@@ -1,7 +1,6 @@
 import emoji
 
-from model.field import Field
-from model.cell import Cell
+from model.field import Field, Cell
 
 
 class FieldInterface:

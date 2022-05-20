@@ -2,6 +2,6 @@ venv
 __pycache__
 .idea
 laba_1/Field/field.pickle
-laba_4/model/field.pickle
+laba_4/field store/field.pickle
 **/.vscode
 laba_2/Utility/*.xml

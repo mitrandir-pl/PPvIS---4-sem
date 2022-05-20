@@ -2,8 +2,7 @@ from controller.bears_controller import BearsController
 from controller.boars_controller import BoarsController
 from controller.bushs_controller import BushsController
 from controller.cells_controller import CellsController
-from controller.dragon_eggs_controller import DragonEggsController
-from controller.dragons_controller import DragonsController
+from controller.dragons_controller import DragonsController, DragonEggsController
 from controller.rabbits_controller import RabbitsController
 from model.field import Field
 

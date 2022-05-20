@@ -1,11 +1,49 @@
 import random
+import emoji
 
-from model.animals import Dragon, DragonEgg
-from model.cell import Cell
-from .creatures_controller import CreaturesController
+from model.field import Cell
+from .creatures_controller import CreaturesController, Animal
 
 
 CHANCE_TO_GO_AWAY = 25
+
+
+class DragonEgg:
+
+    def __init__(self) -> None:
+        self._type = 'dragon_egg'
+        self._age = 0
+
+    @property
+    def type(self) -> str:
+        return self._type
+
+    def __str__(self) -> str:
+        return emoji.emojize(':egg:')
+
+
+class DragonEggsController(CreaturesController):
+
+    def make_decision(self, cell: Cell, egg: DragonEgg) -> None:
+        if egg._age == 3:
+            self.dragon_borning(cell, egg)
+        else:
+            egg._age += 1
+
+    def dragon_borning(self, cell: Cell, egg: DragonEgg) -> None:
+        index = cell.creatures.index(egg)
+        cell.creatures[index] = Dragon()
+
+
+class Dragon(Animal):
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._type = 'dragon'
+        self._health = 400
+
+    def __str__(self) -> str:
+        return emoji.emojize(':dragon:')
 
 
 class DragonsController(CreaturesController):

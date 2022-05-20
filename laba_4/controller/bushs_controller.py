@@ -1,12 +1,33 @@
 import random
+import emoji
 
 from controller.cells_controller import CellsController
-from model.cell import Cell
-from model.field import Field
-from model.plants import Bush
+from model.field import Field, Cell
 
 
 REPRODUCE_CHANCE = 50
+
+
+class Plant:
+
+    def __init__(self) -> None:
+        self._health = 60
+        self._type = 'plant'
+
+    @property
+    def type(self) -> str:
+        return self._type
+
+
+class Bush(Plant):
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._type = 'bush'
+
+
+    def __str__(self) -> str:
+        return emoji.emojize(':herb:')
 
 
 class BushsController:

@@ -1,5 +1,4 @@
-from model.cell import Cell
-from model.animals import Animal
+from model.field import Cell
 
 
 class CellsController:
@@ -16,7 +15,7 @@ class CellsController:
                 if creature.type == creature_type:
                     return creature
 
-    def get_partner(self, cell: Cell, animal: Animal):
+    def get_partner(self, cell: Cell, animal):
         sex_for_search = 'male' if animal.sex == 'female' else 'female'
         for creature in cell.creatures:
             if creature:

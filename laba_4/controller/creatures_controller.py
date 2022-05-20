@@ -1,13 +1,27 @@
 import random
 from abc import ABC, abstractmethod
 
-from model.animals import Animal
 from controller.cells_controller import CellsController, CellsController
-from model.cell import Cell
-from model.field import Field
+from model.field import Field, Cell
 
 
 RABBIT_RUN_AWAY_CHANCE = 50
+
+
+class Animal:
+
+    def __init__(self) -> None:
+        self._hunger = 0
+        self._type = 'animal'
+        self._sex = random.choice(['male', 'female'])
+
+    @property
+    def type(self) -> str:
+        return self._type
+
+    @property
+    def sex(self) -> str:
+        return self._sex
 
 
 class CreaturesController(ABC):
