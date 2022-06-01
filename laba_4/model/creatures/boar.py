@@ -2,8 +2,7 @@ import random
 import emoji
 
 from model.field import Cell
-from .creatures_controller import CreaturesController, Animal
-
+from .animal import Animal
 
 CHANCE_TO_LOOK_AROUND_FOR_BOAR = 20
 CHANCE_TO_GO_AWAY = 45
@@ -19,10 +18,7 @@ class Boar(Animal):
     def __str__(self) -> str:
         return emoji.emojize(':boar:')
 
-
-class BoarsController(CreaturesController):
-    
-    def make_decision(self, cell: Cell, boar: Boar) -> None:
+    def make_decision(self, cell: Cell, boar) -> None:
         if self.is_alive(boar):
             self.weakening(boar)
             if random.randint(0, 100) < CHANCE_TO_LOOK_AROUND_FOR_BOAR:
@@ -45,13 +41,13 @@ class BoarsController(CreaturesController):
         else:
             self.dyuing(cell, boar)
 
-    def reproduce(self, cell: Cell, boar: Boar) -> None:
+    def reproduce(self, cell: Cell, boar) -> None:
         if cell.has_empty_place():
             partner = self.cell_controller.get_partner(cell, boar)
             if partner:
                 index = cell.get_index_of_empty_place()
                 cell.creatures[index] = Boar()
 
-    def weakening(self, boar: Boar) -> None:
+    def weakening(self, boar) -> None:
         boar._health -= 22
         boar._hunger += 1

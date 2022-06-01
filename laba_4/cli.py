@@ -1,11 +1,6 @@
 import argparse
 
 from controller.cycle import Cycle
-from controller.bushs_controller import Bush
-from controller.boars_controller import Boar
-from controller.bears_controller import Bear
-from controller.dragons_controller import Dragon
-from controller.rabbits_controller import Rabbit
 from utility.file_manager import FileManager
 from view.field_interface import FieldInterface
 

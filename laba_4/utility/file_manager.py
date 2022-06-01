@@ -1,11 +1,10 @@
 import pickle
 
-# from model.animals import Bear, Dragon, Rabbit, Boar
-from controller.bears_controller import Bear
-from controller.dragons_controller import Dragon
-from controller.boars_controller import Boar
-from controller.rabbits_controller import Rabbit
-from controller.bushs_controller import Bush
+from model.creatures.bear import Bear
+from model.creatures.boar import Boar
+from model.creatures.rabbit import Rabbit
+from model.creatures.dragon import Dragon, DragonEgg
+from model.creatures.bush import Bush
 from model.field import Field
 
 

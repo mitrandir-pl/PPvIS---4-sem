@@ -1,7 +1,5 @@
 import random
-from abc import ABC, abstractmethod
 
-from controller.cells_controller import CellsController, CellsController
 from model.field import Field, Cell
 
 
@@ -14,6 +12,8 @@ class Animal:
         self._hunger = 0
         self._type = 'animal'
         self._sex = random.choice(['male', 'female'])
+        self.cell_controller = cells_controller
+        self._field = field
 
     @property
     def type(self) -> str:
@@ -23,16 +23,7 @@ class Animal:
     def sex(self) -> str:
         return self._sex
 
-
-class CreaturesController(ABC):
-
-    def __init__(self, cells_controller: CellsController,
-                 field: Field) -> None:
-        self.cell_controller = cells_controller
-        self._field = field
-
-    @abstractmethod
-    def make_decision(self, cell: Cell, creature: Animal):
+    def make_decision(self, cell: Cell, creature):
         pass
 
     def trying_to_eat_bear(self, cell, eater, bear):

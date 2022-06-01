@@ -2,7 +2,7 @@ import random
 import emoji
 
 from model.field import Cell
-from .creatures_controller import CreaturesController, Animal
+from .animal import Animal
 
 CHANCE_TO_LOOK_AROUND_FOR_RABBIT = 25
 CHANCE_TO_GO_AWAY = 25
@@ -18,10 +18,7 @@ class Rabbit(Animal):
     def __str__(self) -> str:
         return emoji.emojize(':rabbit_face:')
 
-
-class RabbitsController(CreaturesController):
-    
-    def make_decision(self, cell: Cell, rabbit: Rabbit) -> None:
+    def make_decision(self, cell: Cell, rabbit) -> None:
         if self.is_alive(rabbit):
             self.weakening(rabbit)
             if random.randint(0, 100) < CHANCE_TO_LOOK_AROUND_FOR_RABBIT:
@@ -44,13 +41,13 @@ class RabbitsController(CreaturesController):
         else:
             self.dyuing(cell, rabbit)
 
-    def reproduce(self, cell: Cell, rabbit: Rabbit) -> None:
+    def reproduce(self, cell: Cell, rabbit) -> None:
         if cell.has_empty_place():
             partner = self.cell_controller.get_partner(cell, rabbit)
             if partner:
                 index = cell.get_index_of_empty_place()
                 cell.creatures[index] = Rabbit()
 
-    def weakening(self, rabbit: Rabbit) -> None:
+    def weakening(self, rabbit) -> None:
         rabbit._health -= 30
         rabbit._hunger += 1
